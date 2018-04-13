@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# install brew (if not done already)
+if which brew >/dev/null; then
+    echo INFO: brew is already installed
+else
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# install and enable https://github.com/MattiSG/adblock
+if which adblock >/dev/null; then
+    adblock
+else
+    brew install mattisg/mattisg/adblock
+    adblock
+fi
+
+# append spotify ad
+echo INFO: Writing spotify ad server to host file
+cat spotify.dat >> /etc/hosts
+
+# source: http://support.apple.com/kb/HT5343
+clear_dns_cache() {
+	if command -v sw_vers >/dev/null 2>&1
+	then
+		if sw_vers -productVersion | grep -q '10\.6'
+		then sudo dscacheutil -flushcache
+		elif sw_vers -productVersion | grep -q '10\.10(\.[123])?$'
+		then sudo killall -HUP discoveryd
+		else sudo killall -HUP mDNSResponder
+		fi
+
+		echo 'DNS cache flushed.'
+	fi
+}
+
+# flush DNS
+clear_dns_cache

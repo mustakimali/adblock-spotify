@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SOURCE='https://raw.githubusercontent.com/mustakimali/adblock-spotify/master/spotify.dat'
+
 # install brew (if not done already)
 if which brew >/dev/null; then
     echo INFO: brew is already installed
@@ -17,7 +19,7 @@ fi
 
 # append spotify ad
 echo INFO: Writing spotify ad server to host file
-cat spotify.dat >> /etc/hosts
+curl --progress-bar $SOURCE >> /etc/hosts
 
 # source: http://support.apple.com/kb/HT5343
 clear_dns_cache() {
@@ -36,3 +38,5 @@ clear_dns_cache() {
 
 # flush DNS
 clear_dns_cache
+
+echo Done. To disable: sudo adblock off

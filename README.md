@@ -25,3 +25,8 @@ To turn it back on
 ```bash
 sudo ./adblock-spotify
 ```
+
+# Update
+```bash
+sudo adblock off && ./adblock-spotify
+```

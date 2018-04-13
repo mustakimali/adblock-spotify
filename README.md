@@ -28,5 +28,5 @@ sudo ./adblock-spotify
 
 # Update
 ```bash
-sudo adblock off && ./adblock-spotify
+sudo adblock off && sudo ./adblock-spotify
 ```
